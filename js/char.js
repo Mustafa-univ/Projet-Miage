@@ -1,4 +1,4 @@
-
+//teste
 class Char {
   constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes) {
     this.x = x;
