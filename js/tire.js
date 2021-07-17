@@ -1,4 +1,4 @@
-class Tire {
+class Bullet {
     constructor(char) {
         this.x = char.x;
         this.y = char.y;
