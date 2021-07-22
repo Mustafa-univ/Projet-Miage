@@ -1,5 +1,12 @@
 class Bullet {
     constructor(char) {
+        export default class Example {
+            test() {
+              console.log('hello world');
+            }
+          }
+
+
         this.x = char.x;
         this.y = char.y;
         this.angle = char.angle;

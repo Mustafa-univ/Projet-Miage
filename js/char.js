@@ -4,9 +4,13 @@ var mousepos = { x: 0, y: 0 };
 var inputStates = {};
 
 window.onload = init;
-
+import Example from './tire';
+console.log(Example.test());
 class Char {
   constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes) {
+
+
+
     this.x = x;
     this.y = y;
     this.angle = angle;
@@ -14,6 +18,9 @@ class Char {
     this.bullets = [];
     // cadenceTir en millisecondes = temps min entre tirs
     this.delayMinBetweenBullets = tempsMinEntreTirsEnMillisecondes;
+
+
+    
   }
   
   draw(ctx) {
