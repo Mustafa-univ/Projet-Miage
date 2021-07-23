@@ -1,9 +1,10 @@
-var canvas, ctx, width, height;
+var canvas1, ctx1, width, height;
 var char1;
-var mousepos = { x: 0, y: 0 };
+var enemie1;
+var mousepos1 = { x: 0, y: 0 };
 var inputStates = {};
 
-window.onload = init;
+
 /*import Example from './tire';
 console.log(Example.test());*/
 class Char {
@@ -119,7 +120,8 @@ function anime() {
     // 2) On dessine et on déplace le char 1
      char1.draw(ctx);
      char1.move(mousepos);
-  
+   /*  enemie1.draw(ctx);
+     enemie1.move(mousepos1+5);*/
     if(inputStates.SPACE) {
       char1.addBullet(Date.now()); 
     }

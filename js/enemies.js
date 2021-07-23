@@ -19,6 +19,7 @@ class Enemies{
         ctx.restore();
         
         this.drawenemies(ctx);
-    
+        char1.draw(ctx1);
       }
+     
 }
