@@ -1,3 +1,7 @@
+//position, direction
+
+
+
 class Bullet/* extends Char*/{
     constructor(char) {
      /*   export default class Example {
@@ -12,6 +16,13 @@ class Bullet/* extends Char*/{
         this.angle = char.angle;
     }
 
+    update(maxX, maxY){
+        //deplacement direction + vitesse
+            this.x -= 10 * Math.cos(this.angle);
+            this.y -= 10 * Math.sin(this.angle);
+        }
+
+
     draw(ctx) {
         ctx.save();
         ctx.translate(this.x, this.y);
@@ -21,8 +32,5 @@ class Bullet/* extends Char*/{
     }
 
   
-    move(maxX, maxY) {
-        this.x -= 10 * Math.cos(this.angle);
-        this.y -= 10 * Math.sin(this.angle);
-    }
+
 }

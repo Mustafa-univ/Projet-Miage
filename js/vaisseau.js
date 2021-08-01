@@ -1,3 +1,8 @@
+//control de vaisseau,données de position, vitesse, liste de missiles
+
+
+
+
 var canvas1, ctx1, width, height;
 var char1;
 var enemie1;
@@ -7,7 +12,7 @@ var inputStates = {};
 
 /*import Example from './tire';
 console.log(Example.test());*/
-class Char {
+class Vaisseau {
   constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes) {
 
 
@@ -86,7 +91,7 @@ class Char {
         this.bullets.splice(position, 1);
     }
 }
-
+/*
 class Bullet {
     constructor(char) {
         this.x = char.x;
@@ -108,7 +113,7 @@ class Bullet {
         this.y -= 10 * Math.sin(this.angle);
     }
 }
-
+*/
 
 
 function anime() {

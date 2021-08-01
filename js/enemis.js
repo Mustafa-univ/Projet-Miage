@@ -1,3 +1,4 @@
+//position, direction
 class Enemies{
     constructor(enemies) {
         this.x = enemies.x;
