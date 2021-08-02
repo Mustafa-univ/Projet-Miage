@@ -11,7 +11,10 @@ class Vague{
     }
     update(){
         //appelle la fonction update() de tous les ennemis contenus dans la liste d'ennemi
-        Enemies.vague()
+        vague.forEach(element => {
+            Enemies.draw();
+        });
+        
     }
     draw(){}
 }

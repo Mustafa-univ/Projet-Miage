@@ -46,6 +46,7 @@ function init() {
   function startGame(assetsLoaded) {
     canvas = document.querySelector("#myCanvas");
     ctx = canvas.getContext("2d");
+    test = canvas.getContext("2d");
     canvasLargeur = canvas.width;
     canvasHauteur = canvas.height;
   

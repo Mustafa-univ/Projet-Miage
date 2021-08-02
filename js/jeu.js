@@ -1,10 +1,12 @@
 class Jeu{
-    constructor( Vague vag,  Vaisseau v) {
+    constructor() {
+        let vaisseau = new vaisseau();
+        let vague = new vague();
 
 
 
-        this.vag = vag;
-        this.v = v;
+        this.vague = vague;
+        this.vaisseau = vaisseau;
     
     
         

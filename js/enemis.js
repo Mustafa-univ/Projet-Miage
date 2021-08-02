@@ -21,6 +21,13 @@ class Enemies{
         
         this.drawenemies(ctx);
         char1.draw(ctx1);
+
+
+
+        test.save();
+        test.translate(2,2);
+        this.drawenemies(test);
+        test.draw(test);
       }
      
 }
