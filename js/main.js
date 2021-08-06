@@ -1,10 +1,11 @@
 window.onload = init;
-
+let vaisseau;
 let canvas, ctx, canvasLargeur, CanvasHauteur;
 let mousepos = {};
 let userState = "rien"
 
-function init() {
+function init(vaisseau) {
+
     canvas = document.querySelector("#myCanvas");
     ctx = canvas.getContext('2d');
     width = canvas.width;
@@ -12,7 +13,7 @@ function init() {
   
     // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
     // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-    char1 = new Char(100, 100, 0, 1, 100);
+    char1 = new Vaisseau(100, 100, 0, 1, 100);
 
     canvas.addEventListener('mousemove', function (evt) {
         mousepos = getMousePos(canvas, evt);

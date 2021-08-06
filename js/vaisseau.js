@@ -91,7 +91,7 @@ class Vaisseau {
         this.bullets.splice(position, 1);
     }
 }
-/*
+
 class Bullet {
     constructor(char) {
         this.x = char.x;
@@ -113,7 +113,7 @@ class Bullet {
         this.y -= 10 * Math.sin(this.angle);
     }
 }
-*/
+
 
 
 function anime() {
