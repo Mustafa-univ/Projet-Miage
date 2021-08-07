@@ -3,7 +3,7 @@
 
 
 
-var canvas1, ctx1, width, height;
+var ctx1, width, height;
 var char1;
 var enemie1;
 var mousepos1 = { x: 0, y: 0 };
@@ -50,6 +50,7 @@ class Vaisseau {
     for(let i = 0; i < this.bullets.length; i++) {
       let b = this.bullets[i];
       b.draw(ctx);
+
       b.move();
       if ((b.x < 0) || (b.y < 0) || (b.x > width) || (b.y > height))
             this.removeBullet(b)
@@ -81,17 +82,34 @@ class Vaisseau {
      
      if((this.lastBulletTime === undefined) || (tempEcoule> this.delayMinBetweenBullets)) {
         this.bullets.push(new Bullet(this));
+
         // on mémorise le dernier temps.
         this.lastBulletTime = time;
      }
    }
+   addEnemie(time) {
+    // si le temps écoulé depuis le dernier tir est > temps max alors on tire
+    var tempEcoule=0;
+    
+    if(this.lastEnemieTime !== undefined) {
+      tempEcoule = time - this.lastEnemieTime;
+      //console.log("temps écoulé = " + tempEcoule);
+    }
+    
+    if((this.lastEnemieTime === undefined) || (tempEcoule> this.delayMinBetweenBullets)) {
+       this.bullets.push(new Bullet(this));
+
+       // on mémorise le dernier temps.
+       this.lastEnemieTime = time;
+    }
+  }
 
    removeBullet(bullet) {
         let position = this.bullets.indexOf(bullet);
         this.bullets.splice(position, 1);
     }
 }
-
+/*
 class Bullet {
     constructor(char) {
         this.x = char.x;
@@ -113,8 +131,7 @@ class Bullet {
         this.y -= 10 * Math.sin(this.angle);
     }
 }
-
-
+*/
 
 function anime() {
   
@@ -124,11 +141,13 @@ function anime() {
 
     // 2) On dessine et on déplace le char 1
      char1.draw(ctx);
+     
      char1.move(mousepos);
-   /*  enemie1.draw(ctx);
-     enemie1.move(mousepos1+5);*/
+    enemie1.draw(ctx);
+     enemie1.move(mousepos1+5);
     if(inputStates.SPACE) {
       char1.addBullet(Date.now()); 
+      char1.addEnemie(Date.now()); 
     }
   
     // On demande une nouvelle frame d'animation
