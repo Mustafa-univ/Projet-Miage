@@ -4,8 +4,8 @@ let canvas, ctx, canvasLargeur, CanvasHauteur;
 let mousepos = {};
 let userState = "rien"
 
-function init(vaisseau,enemis) {
-
+function init(vaisseau,enemis,jeu) {
+   jeu = new Jeu(ctx);
     canvas = document.querySelector("#myCanvas");
     ctx = canvas.getContext('2d');
     width = canvas.width;
@@ -29,7 +29,13 @@ function init(vaisseau,enemis) {
         // tu ne pourras pas tirer plus vite, il te faudra
         // marteler le bouton.
         // compare en gardant space appuyé avec la cadence de
-        // tir à zero.
+        // tir à zero.  
+
+
+        setInterval(function() {
+          jeu.update() // Fonction de calcul
+          jeu.draw() // Fonction de rendu une fois que tout a été calculé
+        }, 50)
     });
   
   window.addEventListener('keydown', function(evt) {

@@ -37,6 +37,7 @@ class Vaisseau {
     
     // corps
     ctx.fillRect(0, 0, 20, 20);
+    
     // canon
     ctx.fillRect(-10, 9, 10, 2);
     

@@ -1,8 +1,7 @@
 class Jeu{
-    constructor() {
-        let vaisseau = new vaisseau();
-        let vague = new vague();
+    constructor(ctx,vaisseau,vague) {
 
+        this.ctx = ctx;
 
 
         this.vague = vague;
@@ -15,8 +14,8 @@ class Jeu{
 
 update(){
     // appelle la fonction update() du vaisseau et des vagues
-    this.vag.update();
-    this.v.update();
+  //  this.vague.update();
+  //  this.vaisseau.update();
 }
 
 
@@ -25,6 +24,6 @@ Draw(){
 //affichages
 this.vag.draw();
 this.v.draw();
-
+this.vague.draw(ctx);
 }
 }

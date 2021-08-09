@@ -31,7 +31,7 @@ class Enemie {
     
       }
       
-    move(maxX, maxY) {
+    move() {
         this.x -= 10 * Math.cos(this.angle);
         this.y -= 10 * Math.sin(this.angle);
     }
@@ -78,6 +78,11 @@ class Enemie {
             this.lastEnemieTime = time;
          }
        }
+
+       update(){
+        this.move();
+       }
+
 
         getMousePos(canvas, evt) {
         // get canvas position
