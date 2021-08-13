@@ -1,7 +1,8 @@
 //position, direction
 
+let a = 20;
+let b = 20;
 
-var mousepos1 = { x: 0, y: 0 };
 var enemies1;
 var inputStates = {};
 class Enemie {
@@ -16,24 +17,27 @@ class Enemie {
 
     draw(ctx) {
         ctx.save();
-        ctx.translate(this.x, this.y);
+        ctx.translate(a, b);
         ctx.rotate(this.angle);
         ctx.translate(-10, -10);
         
         // corps
-        ctx.fillRect(0, 0, 20, 20);
+        ctx.fillRect(0, 0, 40, 40);
         // canon
-        ctx.fillRect(-10, 9, 10, 2);
+        ctx.fillRect(-20, 9, 80, 20);
         
         ctx.restore();
         
         this.drawEnemies(ctx);
+        a+10;
+        b+10;
     
       }
       
     move() {
-        this.x -= 10 * Math.cos(this.angle);
-        this.y -= 10 * Math.sin(this.angle);
+      
+        a += 10;
+        b += 10;
     }
 
 
