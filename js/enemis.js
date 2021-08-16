@@ -1,23 +1,20 @@
-//position, direction
-
-let a = 20;
-let b = 20;
-
-var enemies1;
 var inputStates = {};
-class Enemie {
 
-    constructor(enemie,x,y) {
-       
-        this.x = enemie.x;
-        this.y = enemie.y;
-        this.angle = enemie.angle;
-        this.enemies = [];
+class Enemie {
+    constructor(x, y, angle, vitesseX, vitesseY) {
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
+        this.vitesseX = vitesseX;
+        this.vitesseY = vitesseY;
+
+        // Si removed = true, l'ennemi sera supprimée de la vague automatiquement.
+        this.removed = false
     }
 
     draw(ctx) {
         ctx.save();
-        ctx.translate(a, b);
+        ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
         ctx.translate(-10, -10);
         
@@ -27,44 +24,19 @@ class Enemie {
         ctx.fillRect(-20, 9, 80, 20);
         
         ctx.restore();
-        
-        this.drawEnemies(ctx);
-        a+10;
-        b+10;
-    
-      }
-      
-    move() {
-      
-        a += 10;
-        b += 10;
     }
 
+    update() {
+        this.move();
 
-      drawEnemies(ctx) {
-        for(let i = 0; i < this.enemies.length; i++) {
-          let b = this.enemies[i];
-          b.draw(ctx);
-    
-          b.move();
-          if ((b.x < 0) || (b.y < 0) || (b.x > width) || (b.y > height))
-                this.removeEnemie(b)
-    
-        }
-      }
+        if (this.x > width || this.y > height || this.x < 0 || this.y < 0)
+          this.removed = true
+    }
       
-      move(mousepos) {
-            // 2) On dÃ©place la balle 
-        let dx = this.x - mousepos.x+ 20;
-        let dy = this.y -mousepos.y+ 20;
-        this.angle = Math.atan2(dy, dx);
-        
-        if (distance(this.x, this.y, mousepos.x, mousepos.y) >= 10) {
-            //ball.v = 0;
-            this.x -= this.v * Math.cos(this.angle);
-            this.y -= this.v * Math.sin(this.angle);
-        }
-      }
+    move() {
+        this.x += this.vitesseX;
+        this.y += this.vitesseY;
+    }
       
        addEnemie(time) {
          // si le temps écoulé depuis le dernier tir est > temps max alors on tire
@@ -82,30 +54,5 @@ class Enemie {
             this.lastEnemieTime = time;
          }
        }
-
-       update(){
-        this.move();
-       }
-
-
-        getMousePos(canvas, evt) {
-        // get canvas position
-        var obj = canvas;
-        var top = 0;
-        var left = 0;
-        while (obj && obj.tagName != 'BODY') {
-            top += obj.offsetTop;
-            left += obj.offsetLeft;
-            obj = obj.offsetParent;
-        }
-    
-        // return relative mouse position
-        var mouseX = evt.clientX - left + window.pageXOffset;
-        var mouseY = evt.clientY - top + window.pageYOffset;
-        return {
-            x: mouseX,
-            y: mouseY
-        };
-    }
   }
   

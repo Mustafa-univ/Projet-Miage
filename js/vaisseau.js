@@ -34,6 +34,8 @@ class Vaisseau {
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
     ctx.translate(-10, -10);
+
+    ctx.fillStyle = 'gray';
     
     // corps
     ctx.fillRect(0, 0, 20, 20);
@@ -58,9 +60,13 @@ class Vaisseau {
 
     }
   }
+
+  update() {
+    this.move();
+  }
   
-  move(mousepos) {
-        // 2) On dÃ©place la balle 
+  move() {
+    // 2) On dÃ©place la balle 
     let dx = this.x - mousepos.x;
     let dy = this.y - mousepos.y;
     this.angle = Math.atan2(dy, dx);
@@ -137,7 +143,6 @@ class Bullet {
 function anime() {
   
     // 1) On efface l'Ã©cran
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
     // 2) On dessine et on déplace le char 1
@@ -152,33 +157,11 @@ function anime() {
     }
   
     // On demande une nouvelle frame d'animation
-    window.requestAnimationFrame(anime);
   
 }
 
 function distance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-}
-
-
-function getMousePos(canvas, evt) {
-    // get canvas position
-    var obj = canvas;
-    var top = 0;
-    var left = 0;
-    while (obj && obj.tagName != 'BODY') {
-        top += obj.offsetTop;
-        left += obj.offsetLeft;
-        obj = obj.offsetParent;
-    }
-
-    // return relative mouse position
-    var mouseX = evt.clientX - left + window.pageXOffset;
-    var mouseY = evt.clientY - top + window.pageYOffset;
-    return {
-        x: mouseX,
-        y: mouseY
-    };
 }
 
 function changeCadenceTir(value) {

@@ -3,22 +3,28 @@ let vaisseau;
 let canvas, ctx, canvasLargeur, CanvasHauteur;
 let mousepos = {};
 let userState = "rien"
+let jeu = null
+
+const UPDATE_PER_SECOND = 60
 
 function init(vaisseau,enemis,jeu) {
-   jeu = new Jeu(ctx);
     canvas = document.querySelector("#myCanvas");
     ctx = canvas.getContext('2d');
     width = canvas.width;
     height = canvas.height;
-  
-    // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
-    // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-    char1 = new Vaisseau(100, 100, 0, 1, 100);
-    enemie1 = new Enemie(100, 100, 0, 1, 100);
 
     canvas.addEventListener('mousemove', function (evt) {
-        mousepos = getMousePos(canvas, evt);
+      mousepos = getMousePos(canvas, evt);
     }, false);
+
+    // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
+    // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
+    jeu = new Jeu(ctx, new Vaisseau(100, 100, 0, 1, 100));
+
+    setInterval(function() {
+      jeu.update() // Fonction de calcul
+      jeu.draw() // Fonction de rendu une fois que tout a été calculé
+    }, 1000 / UPDATE_PER_SECOND)
 
     window.addEventListener('click', function (evt) {
         // on passe le temps en parametres, en millisecondes
@@ -30,12 +36,6 @@ function init(vaisseau,enemis,jeu) {
         // marteler le bouton.
         // compare en gardant space appuyé avec la cadence de
         // tir à zero.  
-
-
-        setInterval(function() {
-          jeu.update() // Fonction de calcul
-          jeu.draw() // Fonction de rendu une fois que tout a été calculé
-        }, 50)
     });
   
   window.addEventListener('keydown', function(evt) {
@@ -46,15 +46,30 @@ function init(vaisseau,enemis,jeu) {
     
     inputStates.SPACE = false;
   });
+}
 
-    anime();
+function getMousePos(canvas, evt) {
+  // get canvas position
+  var obj = canvas;
+  var top = 0;
+  var left = 0;
+  while (obj && obj.tagName != 'BODY') {
+      top += obj.offsetTop;
+      left += obj.offsetLeft;
+      obj = obj.offsetParent;
+  }
+
+  // return relative mouse position
+  var mouseX = evt.clientX - left + window.pageXOffset;
+  var mouseY = evt.clientY - top + window.pageYOffset;
+  return {
+      x: mouseX,
+      y: mouseY
+  };
 }
 
 
-  function startGame(assetsLoaded) {
-    canvas = document.querySelector("#myCanvas");
-    ctx = canvas.getContext("2d");
-    test = canvas.getContext("2d");
+/*  function startGame() {
     canvasLargeur = canvas.width;
     canvasHauteur = canvas.height;
   
@@ -65,4 +80,4 @@ function init(vaisseau,enemis,jeu) {
     canvas.onmousemove = traiteMouseMove;
   
     requestAnimationFrame(animationLoop);
-  }
+  } */

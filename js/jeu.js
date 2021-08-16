@@ -1,29 +1,25 @@
 class Jeu{
-    constructor(ctx,vaisseau,vague) {
+  constructor(ctx, vaisseau) {
+    this.ctx = ctx;
 
-        this.ctx = ctx;
-
-
-        this.vague = vague;
-        this.vaisseau = vaisseau;
+    this.vague = new Vague(ctx);
+    this.vaisseau = vaisseau;
+  }
     
-    
-        
-      }
-    //calculs et gestion de vagues
-
-update(){
+  //calculs et gestion de vagues
+  update() {
     // appelle la fonction update() du vaisseau et des vagues
-  //  this.vague.update();
-  //  this.vaisseau.update();
-}
+    this.vaisseau.update();
+    this.vague.update();
+  }
 
 
 
-Draw(){
-//affichages
-this.vag.draw();
-this.v.draw();
-this.vague.draw(ctx);
-}
+  draw(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    //affichages
+    this.vaisseau.draw(ctx);
+    this.vague.draw(ctx);
+  }
 }
