@@ -1,15 +1,66 @@
 canvas {
     border: 2px solid black;
-    background-color: darkolivegreen;
-
+    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
+                  url("../assets/images/raw.jfif");
+  background-size: cover;
+  border: 2px solid purple;
   }
   
 
 body{
-  background-color: saddlebrown;
+  background-image: url("../assets/images/espace_-_galaxie_0_1_1.jpg");
 }
 
 
 .bullet{
   background-color: tomato;
+}
+
+.wrapper{
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+a{
+  display: block;
+  width: 200px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-decoration: none;
+  color:white;
+  border: 2px solid white;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all .35s;
+  background-color: rgba(0, 0, 255, 0.5);
+}
+
+a span{
+  position: relative;
+  z-index: 2;
+}
+
+a:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ff003b;
+  transition: all .35s;
+}
+
+a:hover{
+  color: #fff;
+}
+
+a:hover:after{
+  width: 100%;
 }

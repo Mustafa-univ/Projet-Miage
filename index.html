@@ -12,14 +12,16 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <canvas id="myCanvas" width="1475" height="670">
+  <embed src="assets/sons/space_beat.mp3" autostart="true" loop="true" hidden="true"></embed>
+
+
+
+  <canvas id="myCanvas" width="1475" height="680">
   </canvas>
- Tir avec click souris ou ESPACE
-  <label>Temps min entre les tirs, en millisecondes : 
-    <input type=number value=100 
-           step=10 min=0 max=1000
-           oninput="changeCadenceTir(this.value)">
-  </label>
+ 
+  <div class="wrapper">
+    <a href="#"><span> START!</span></a>
+  </div>
 
 
 </body>
