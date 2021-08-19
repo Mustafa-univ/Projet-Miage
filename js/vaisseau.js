@@ -14,9 +14,6 @@ var inputStates = {};
 console.log(Example.test());*/
 class Vaisseau {
   constructor(x, y, angle, vitesse, tempsMinEntreTirsEnMillisecondes) {
-
-
-
     this.x = x;
     this.y = y;
     this.angle = angle;
@@ -25,10 +22,36 @@ class Vaisseau {
     // cadenceTir en millisecondes = temps min entre tirs
     this.delayMinBetweenBullets = tempsMinEntreTirsEnMillisecondes;
 
+    window.addEventListener('click', function (evt) {
+      this.shootBullet(Date.now());
+    }.bind(this));
 
-    
+    window.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 32)
+        this.shootBullet(Date.now());
+    }.bind(this));
+  }
+
+  update() {
+    this.move();
+
+    this.bullets = this.bullets.filter(e => !e.removed);
+    this.bullets.forEach(e => e.update());
   }
   
+  move() {
+    // 2) On dÃ©place la balle 
+    let dx = this.x - mousepos.x;
+    let dy = this.y - mousepos.y;
+    this.angle = Math.atan2(dy, dx);
+    
+    if (distance(this.x, this.y, mousepos.x, mousepos.y) >= 10) {
+        //ball.v = 0;
+        this.x -= this.v * Math.cos(this.angle);
+        this.y -= this.v * Math.sin(this.angle);
+    }
+  }
+    
   draw(ctx) {
     ctx.save();
     ctx.translate(this.x, this.y);
@@ -45,40 +68,10 @@ class Vaisseau {
     
     ctx.restore();
     
-    this.drawBullets(ctx);
-
+    this.bullets.forEach(e => e.draw());
   }
   
-  drawBullets(ctx) {
-    for(let i = 0; i < this.bullets.length; i++) {
-      let b = this.bullets[i];
-      b.draw(ctx);
-
-      b.move();
-      if ((b.x < 0) || (b.y < 0) || (b.x > width) || (b.y > height))
-            this.removeBullet(b)
-
-    }
-  }
-
-  update() {
-    this.move();
-  }
-  
-  move() {
-    // 2) On dÃ©place la balle 
-    let dx = this.x - mousepos.x;
-    let dy = this.y - mousepos.y;
-    this.angle = Math.atan2(dy, dx);
-    
-    if (distance(this.x, this.y, mousepos.x, mousepos.y) >= 10) {
-        //ball.v = 0;
-        this.x -= this.v * Math.cos(this.angle);
-        this.y -= this.v * Math.sin(this.angle);
-    }
-  }
-  
-   addBullet(time) {
+   shootBullet(time) {
      // si le temps écoulé depuis le dernier tir est > temps max alors on tire
      var tempEcoule=0;
      
@@ -94,27 +87,6 @@ class Vaisseau {
         this.lastBulletTime = time;
      }
    }
-   addEnemie(time) {
-    // si le temps écoulé depuis le dernier tir est > temps max alors on tire
-    var tempEcoule=0;
-    
-    if(this.lastEnemieTime !== undefined) {
-      tempEcoule = time - this.lastEnemieTime;
-      //console.log("temps écoulé = " + tempEcoule);
-    }
-    
-    if((this.lastEnemieTime === undefined) || (tempEcoule> this.delayMinBetweenBullets)) {
-       this.bullets.push(new Bullet(this));
-
-       // on mémorise le dernier temps.
-       this.lastEnemieTime = time;
-    }
-  }
-
-   removeBullet(bullet) {
-        let position = this.bullets.indexOf(bullet);
-        this.bullets.splice(position, 1);
-    }
 }
 /*
 class Bullet {

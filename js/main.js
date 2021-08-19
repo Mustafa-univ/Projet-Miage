@@ -1,6 +1,7 @@
 window.onload = init;
 let vaisseau;
 let canvas, ctx, canvasLargeur, CanvasHauteur;
+let scoreText;
 let mousepos = {};
 let userState = "rien"
 let jeu = null
@@ -13,39 +14,32 @@ function init(vaisseau,enemis,jeu) {
     width = canvas.width;
     height = canvas.height;
 
+    scoreText = document.querySelector("#score");
+
     canvas.addEventListener('mousemove', function (evt) {
       mousepos = getMousePos(canvas, evt);
     }, false);
 
-    // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
-    // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
-    jeu = new Jeu(ctx, new Vaisseau(100, 100, 0, 1, 100));
+    var startButton = document.querySelector("#startButton");
+    startButton.addEventListener('click', function(evt) {
+      startButton.style.display = 'none';
+      // dernier param = temps min entre tirs consecutifs. Mettre à 0 pour cadence max
+      // 500 = 2 tirs max par seconde, 100 = 10 tirs/seconde
+      jeu = new Jeu(ctx, new Vaisseau(100, 100, 0, 1, 100));
 
-    setInterval(function() {
-      jeu.update() // Fonction de calcul
-      jeu.draw() // Fonction de rendu une fois que tout a été calculé
-    }, 1000 / UPDATE_PER_SECOND)
-
-    window.addEventListener('click', function (evt) {
-        // on passe le temps en parametres, en millisecondes
-        char1.addBullet(Date.now()); 
-        enemie1.addEnemie(Date.now());
-        // NOTE : si tu n'utilises pas inputStates.MOUSEDOWN
-        // ici, mais juste l'évébement click au lieu de mousedown
-        // tu ne pourras pas tirer plus vite, il te faudra
-        // marteler le bouton.
-        // compare en gardant space appuyé avec la cadence de
-        // tir à zero.  
+      var gameLoop = setInterval(function() {
+        jeu.update() // Fonction de calcul
+        if (jeu.removed) {
+          clearInterval(gameLoop);
+          startButton.style.display = 'block';
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          MIN_SPEED = 0.5;
+          MAX_SPEED = 2;
+          return;
+        }
+        jeu.draw() // Fonction de rendu une fois que tout a été calculé
+      }, 1000 / UPDATE_PER_SECOND)
     });
-  
-  window.addEventListener('keydown', function(evt) {
-    inputStates.SPACE = true;
-  });
-  
-  window.addEventListener('keyup', function(evt) {
-    
-    inputStates.SPACE = false;
-  });
 }
 
 function getMousePos(canvas, evt) {

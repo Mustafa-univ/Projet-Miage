@@ -1,5 +1,3 @@
-var inputStates = {};
-
 class Enemie {
     constructor(x, y, angle, vitesseX, vitesseY) {
         this.x = x;
@@ -7,6 +5,8 @@ class Enemie {
         this.angle = angle;
         this.vitesseX = vitesseX;
         this.vitesseY = vitesseY;
+        this.size = { x:40, y:40 };
+        this.time = 0; // Utilisé pour le pattern
 
         // Si removed = true, l'ennemi sera supprimée de la vague automatiquement.
         this.removed = false
@@ -19,9 +19,9 @@ class Enemie {
         ctx.translate(-10, -10);
         
         // corps
-        ctx.fillRect(0, 0, 40, 40);
+        ctx.fillRect(0, 0, this.size.x, this.size.y);
         // canon
-        ctx.fillRect(-20, 9, 80, 20);
+        //ctx.fillRect(-20, 9, 80, 20);
         
         ctx.restore();
     }
@@ -34,25 +34,9 @@ class Enemie {
     }
       
     move() {
+        this.time += 0.1;
         this.x += this.vitesseX;
-        this.y += this.vitesseY;
+        this.y += this.vitesseY * Math.sin(this.time);
     }
-      
-       addEnemie(time) {
-         // si le temps écoulé depuis le dernier tir est > temps max alors on tire
-         var tempEcoule=0;
-         
-         if(this.lastEnemieTime !== undefined) {
-           tempEcoule = time - this.lastEnemieTime;
-           //console.log("temps écoulé = " + tempEcoule);
-         }
-         
-         if((this.lastEnemieTime === undefined) || (tempEcoule> this.delayMinBetweenEnemies)) {
-            this.enemies.push(new Enemie(this));
-    
-            // on mémorise le dernier temps.
-            this.lastEnemieTime = time;
-         }
-       }
-  }
+}
   
